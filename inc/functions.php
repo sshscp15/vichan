@@ -722,13 +722,12 @@ function file_unlink($path) {
 		$debug['unlink'][] = $path;
 	}
 
-	$ret = @unlink($path);
+	$ret = false;
+	if (file_exists($path))
+		$ret = unlink($path);
 
-        if ($config['gzip_static']) {
-                $gzpath = "$path.gz";
-
-		@unlink($gzpath);
-	}
+        if ($config['gzip_static'] && file_exists($gzpath = "$path.gz"))
+		unlink($gzpath);
 
 	if (isset($config['purge']) && $path[0] != '/' && isset($_SERVER['HTTP_HOST'])) {
 		// Purge cache
