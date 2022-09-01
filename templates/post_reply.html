@@ -1,4 +1,4 @@
-{% filter remove_whitespace %}
+{% apply spaceless %}
 {# tabs and new lines will be ignored #}
 <div class="post reply" id="reply_{{ post.id }}">
 <p class="intro">
@@ -25,4 +25,4 @@
 	</div>
 </div>
 <br/>
-{% endfilter %}
+{% endapply %}

@@ -6,10 +6,12 @@
 		{% if board %}
 			<li><a href="?/config">Edit site-wide config</a></li>
 		{% endif %}
-		{% for _board in boards if _board.uri != board %}
-			<li>
-				<a href="?/config/{{ _board.uri }}">Edit config for {{ config.board_abbreviation|sprintf(_board.uri) }}</a>
-			</li>
+		{% for _board in boards %}
+			{% if _board.uri != board %}
+				<li>
+					<a href="?/config/{{ _board.uri }}">Edit config for {{ config.board_abbreviation|sprintf(_board.uri) }}</a>
+				</li>
+			{% endif %}
 		{% endfor %}
 	</ul>
 {% endif %}
@@ -22,11 +24,13 @@
 			<th class="minimal">{% trans 'Type' %}</th>
 			<th>{% trans 'Description' %}</th>
 		</tr>
-		{% for var in conf if var.type != 'array' %}
-			{% if var.name|length == 1 %}
-				{% set name = 'cf_' ~ var.name %}
-			{% else %}
-				{% set name = 'cf_' ~ var.name|join('/') %}
+		{% for var in conf %}
+			{% if var.type != 'array' %}
+				{% if var.name|length == 1 %}
+					{% set name = 'cf_' ~ var.name %}
+				{% else %}
+					{% set name = 'cf_' ~ var.name|join('/') %}
+				{% endif %}
 			{% endif %}
 			
 			<tr>
