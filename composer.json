@@ -6,7 +6,7 @@
         "ext-mbstring": ">=5.4",
         "ext-gd": ">=5.4",
         "ext-pdo": ">=5.4",
-        "twig/twig": "^1.44.2",
+        "twig/twig": "^2.4",
         "lifo/ip": "^1.0",
         "gettext/gettext": "^1.0",
         "mrclay/minify": "^2.1.6",

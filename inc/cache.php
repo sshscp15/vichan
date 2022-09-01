@@ -185,4 +185,24 @@ class Cache {
 		return false;
 	}
 }
+class Twig_Cache_TinyboardFilesystem extends Twig\Cache\FilesystemCache
+{
+	private $directory;
+	private $options;
 
+	public function __construct($directory, $options = 0)
+	{
+		parent::__construct($directory, $options);
+
+		$this->directory = $directory;
+	}
+
+	public function clear()
+	{
+		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->directory), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
+			if ($file->isFile()) {
+				@unlink($file->getPathname());
+			}
+		}
+	}
+}

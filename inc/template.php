@@ -10,16 +10,16 @@ $twig = false;
 
 function load_twig() {
 	global $twig, $config;
-	$loader = new Twig_Loader_Filesystem($config['dir']['template']);
+	$loader = new Twig\Loader\FilesystemLoader($config['dir']['template']);
 	$loader->setPaths($config['dir']['template']);
-	$twig = new Twig_Environment($loader, array(
+	$twig = new Twig\Environment($loader, array(
 		'autoescape' => false,
 		'cache' => is_writable('templates') || (is_dir('templates/cache') && is_writable('templates/cache')) ?
-			"{$config['dir']['template']}/cache" : false,
+			new Twig_Cache_TinyboardFilesystem("{$config['dir']['template']}/cache") : false,
 		'debug' => $config['debug']
 	));
 	$twig->addExtension(new Twig_Extensions_Extension_Tinyboard());
-	$twig->addExtension(new Twig_Extensions_Extension_I18n());
+	$twig->addExtension(new Twig\Extensions\I18nExtension());
 }
 
 function Element($templateFile, array $options) {
